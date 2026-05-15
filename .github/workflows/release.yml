@@ -8,23 +8,46 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-22.04   # → ckpt-linux-x86_64
-          - os: macos-14       # → ckpt-macos-arm64  (Apple Silicon)
-          - os: windows-2022   # → ckpt-windows.exe
+          # Use older Ubuntu for maximum backward compatibility across Linux distros
+          - os: ubuntu-20.04   
+            name: linux-x86_64
+          # Intel-based Macs
+          - os: macos-13       
+            name: macos-x86_64
+          # Apple Silicon (M1/M2/M3) Macs
+          - os: macos-14       
+            name: macos-arm64
+          # Windows
+          - os: windows-2022   
+            name: windows-x86_64
 
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-python@v5
         with: { python-version: '3.12' }
+        
       - run: pip install click rich pyinstaller
+      
       - run: pyinstaller ckpt.spec --clean --noconfirm
-      - name: rename binary
-        run: mv dist/ckpt dist/ckpt-${{ runner.os }}-${{ runner.arch }}
+
+      # Rename step for Linux and Mac
+      - name: Rename binary (Linux/Mac)
+        if: runner.os != 'Windows'
+        run: mv dist/ckpt dist/ckpt-${{ matrix.name }}
+
+      # Rename step for Windows (Accounts for .exe and forces bash shell)
+      - name: Rename binary (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: mv dist/ckpt.exe dist/ckpt-${{ matrix.name }}.exe
+
       - uses: actions/upload-artifact@v4
         with:
-          name: ckpt-${{ runner.os }}
+          name: ckpt-${{ matrix.name }}
           path: dist/ckpt-*
+
   release:
     needs: build
     runs-on: ubuntu-latest
