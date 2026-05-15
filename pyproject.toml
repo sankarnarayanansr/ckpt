@@ -1,0 +1,22 @@
+[project]
+name = "ckpt"
+version = "1.0.0"
+description = "Dead-simple CLI checkpoint and rollback tool for EDA projects"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+]
+
+[project.scripts]
+ckpt = "ckpt.cli:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ckpt"]
