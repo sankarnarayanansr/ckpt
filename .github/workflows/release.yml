@@ -2,7 +2,8 @@
 on:
   push:
     tags: ['v*']
-
+permissions:
+  contents: write
 jobs:
   build:
     name: Build ${{ matrix.target.name }}
