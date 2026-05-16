@@ -5,13 +5,12 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.name }}
+    name: Build ${{ matrix.target.name }}
     strategy:
-      fail-fast: false # Prevents one failing OS from cancelling the others
+      fail-fast: false
       matrix:
-        # Explicitly define the OS array so GitHub guarantees 4 jobs are created
-        os: [ubuntu-20.04, macos-13, macos-14, windows-2022]
-        include:
+        # Grouping variables tightly into a "target" object guarantees 4 jobs
+        target:
           - os: ubuntu-20.04
             name: linux-x86_64
           - os: macos-13
@@ -21,7 +20,7 @@ jobs:
           - os: windows-2022
             name: windows-x86_64
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.target.os }}
     steps:
       - uses: actions/checkout@v4
       
@@ -36,17 +35,17 @@ jobs:
       # Rename step for Linux and Mac
       - name: Rename binary (Linux/Mac)
         if: runner.os != 'Windows'
-        run: mv dist/ckpt dist/ckpt-${{ matrix.name }}
+        run: mv dist/ckpt dist/ckpt-${{ matrix.target.name }}
 
-      # Rename step for Windows (Accounts for .exe and forces bash shell)
+      # Rename step for Windows
       - name: Rename binary (Windows)
         if: runner.os == 'Windows'
         shell: bash
-        run: mv dist/ckpt.exe dist/ckpt-${{ matrix.name }}.exe
+        run: mv dist/ckpt.exe dist/ckpt-${{ matrix.target.name }}.exe
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ckpt-${{ matrix.name }}
+          name: ckpt-${{ matrix.target.name }}
           path: dist/ckpt-*
 
   release:
@@ -56,7 +55,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: release-binaries
-          merge-multiple: true # Flattens all binaries into one folder
+          merge-multiple: true
           
       - uses: softprops/action-gh-release@v2
         with: 
