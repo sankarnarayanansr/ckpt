@@ -9,14 +9,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Grouping variables tightly into a "target" object guarantees 4 jobs
         target:
-          - os: ubuntu-20.04
+          # Bumped to 22.04 because 20.04 is removed from GitHub Actions
+          - os: ubuntu-22.04
             name: linux-x86_64
-          - os: macos-13
-            name: macos-x86_64
+          # Standard Apple Silicon Mac
           - os: macos-14
             name: macos-arm64
+          # Standard Windows
           - os: windows-2022
             name: windows-x86_64
 
@@ -37,7 +37,7 @@ jobs:
         if: runner.os != 'Windows'
         run: mv dist/ckpt dist/ckpt-${{ matrix.target.name }}
 
-      # Rename step for Windows
+      # Rename step for Windows (Accounts for .exe and forces bash shell)
       - name: Rename binary (Windows)
         if: runner.os == 'Windows'
         shell: bash
