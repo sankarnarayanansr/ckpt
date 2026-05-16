@@ -5,20 +5,20 @@ on:
 
 jobs:
   build:
+    name: Build ${{ matrix.name }}
     strategy:
+      fail-fast: false # Prevents one failing OS from cancelling the others
       matrix:
+        # Explicitly define the OS array so GitHub guarantees 4 jobs are created
+        os: [ubuntu-20.04, macos-13, macos-14, windows-2022]
         include:
-          # Use older Ubuntu for maximum backward compatibility across Linux distros
-          - os: ubuntu-20.04   
+          - os: ubuntu-20.04
             name: linux-x86_64
-          # Intel-based Macs
-          - os: macos-13       
+          - os: macos-13
             name: macos-x86_64
-          # Apple Silicon (M1/M2/M3) Macs
-          - os: macos-14       
+          - os: macos-14
             name: macos-arm64
-          # Windows
-          - os: windows-2022   
+          - os: windows-2022
             name: windows-x86_64
 
     runs-on: ${{ matrix.os }}
@@ -26,7 +26,8 @@ jobs:
       - uses: actions/checkout@v4
       
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
+        with: 
+          python-version: '3.12'
         
       - run: pip install click rich pyinstaller
       
@@ -53,5 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
+        with:
+          path: release-binaries
+          merge-multiple: true # Flattens all binaries into one folder
+          
       - uses: softprops/action-gh-release@v2
-        with: { files: '**/*' }
+        with: 
+          files: release-binaries/*
