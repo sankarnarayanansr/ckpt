@@ -1,2 +1,4 @@
 build/*
 testfolder/*
+# Local Netlify folder
+.netlify

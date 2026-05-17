@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/install"
+  to = "/install.sh"
+  status = 200
+
+[[redirects]]
+  from = "/get"
+  to = "/.netlify/functions/get"
+  status = 200
