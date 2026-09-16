@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1348" height="726" viewBox="0 0 1348 726" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace">
+  <!-- window chrome -->
+  <rect width="1348" height="86" fill="#232323"/>
+  <rect y="85" width="1348" height="1" fill="#111111"/>
+  <circle cx="30" cy="43" r="8.5" fill="#ff5f56"/>
+  <circle cx="72" cy="43" r="8.5" fill="#ffbd2e"/>
+  <circle cx="114" cy="43" r="8.5" fill="#27c93f"/>
+  <text x="130" y="50" font-size="19" fill="#8b8b8b">~/projects/soc_verif — bash</text>
+
+  <!-- terminal body -->
+  <rect y="86" width="1348" height="640" fill="#0d0d0d"/>
+
+  <!-- 1 -->
+  <text x="674" y="170" text-anchor="middle" font-size="26" fill="#6e6e6e"># synthesis hit 480MHz — checkpoint now</text>
+
+  <!-- 2 -->
+  <text x="416.6" y="222" font-size="26" fill="#8a8a8a">$ </text>
+  <text x="447.8" y="222" font-size="26" fill="#cdd6f4">ckpt save "timing clean 480MHz"</text>
+
+  <!-- 3 -->
+  <text x="674" y="275" text-anchor="middle" font-size="26" fill="#4ec26a">✓ saved 7f3a1c9 · 1.8 GB · 3.2s</text>
+
+  <!-- 4 -->
+  <text x="674" y="336" text-anchor="middle" font-size="26" fill="#6e6e6e"># two hours of edits later...</text>
+
+  <!-- 5 -->
+  <text x="674" y="396" text-anchor="middle" font-size="26" fill="#6e6e6e"># timing failed. 11h rebuild in queue.</text>
+
+  <!-- 6 -->
+  <text x="502.4" y="454" font-size="26" fill="#8a8a8a">$ </text>
+  <text x="533.6" y="454" font-size="26" fill="#cdd6f4">ckpt restore 7f3a1c9</text>
+
+  <!-- 7 -->
+  <text x="674" y="507" text-anchor="middle" font-size="26" fill="#4ec26a">✓ restored in 4.1s [no rebuild]</text>
+
+  <!-- 8 -->
+  <text x="674" y="568" text-anchor="middle" font-size="26" fill="#6e6e6e">compute saved: 11h × $38 =</text>
+
+  <!-- 9 -->
+  <text x="674" y="628" text-anchor="middle" font-size="27" font-weight="bold" fill="#3fd06c">$418 recovered</text>
+
+  <!-- 10 -->
+  <text x="666" y="686" text-anchor="middle" font-size="26" fill="#8a8a8a">$</text>
+  <rect x="684" y="666" width="10" height="26" fill="#7d8288" opacity="0.6"/>
+</svg>

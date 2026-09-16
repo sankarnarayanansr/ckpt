@@ -1,16 +1,10 @@
-# deltapro
+# ckpt
 
 Dead-simple CLI checkpoint and rollback tool for EDA projects.
 
 Save your entire project state with one command, then roll back to it in seconds — no recompute, no queue. Think of it as a snapshot tool for multi-gigabyte EDA / simulation workspaces: a content-addressed store (**`.ckpt/`**) deduplicates files, so repeated saves only write what actually changed.
 
-```
-$ ckpt save "timing clean 480MHz"
-Saved 7f3a1c9  "timing clean 480MHz"  (12,481 files, 1.8 GB)
-
-$ ckpt restore 7f3a1c9
-Restored 7f3a1c9  ~4s
-```
+![ckpt: save a checkpoint in seconds, restore it after a failed rebuild](assets/demo.svg)
 
 ## Features
 
@@ -29,8 +23,8 @@ Restored 7f3a1c9  ~4s
 ### From source
 
 ```sh
-git clone https://github.com/sankarnarayanansr/deltapro.git
-cd deltapro
+git clone https://github.com/sankarnarayanansr/ckpt.git
+cd ckpt
 pip install .
 ```
 
