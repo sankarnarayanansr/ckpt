@@ -1,4 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+
+# PyInstaller build output
 build/*
 testfolder/*
-# Local Netlify folder
+
+# Landing page / docs (not part of the CLI repo)
+landingpage/
 .netlify
+install.md
+ckpt_codebase.md
+
+# Misc
+.DS_Store
